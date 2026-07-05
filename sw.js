@@ -1,5 +1,5 @@
 /* Service Worker — Revi & Irwan Wedding Invitation */
-const CACHE_NAME = 'revi-irwan-invitation-v1';
+const CACHE_NAME = 'revi-irwan-invitation-v2';
 
 const PRECACHE_ASSETS = [
   './',
@@ -37,27 +37,39 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  const url = event.request.url;
+  const isAppShell = /\.(html|js|css)$/.test(url) || event.request.mode === 'navigate';
+
+  if (isAppShell) {
+    // Network-first: always try to get the latest version so content
+    // updates (guest name, fixes, etc.) show up immediately. Cache is
+    // only used as an offline fallback.
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Cache-first for static assets (images, fonts, icons) — these rarely change.
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
 
       return fetch(event.request)
         .then((networkResponse) => {
-          // Only cache successful, same-origin responses
-          if (
-            networkResponse &&
-            networkResponse.status === 200 &&
-            networkResponse.type === 'basic'
-          ) {
+          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
             const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
           }
           return networkResponse;
         })
         .catch(() => {
-          // Offline fallback for navigation requests
           if (event.request.mode === 'navigate') {
             return caches.match('./index.html');
           }
