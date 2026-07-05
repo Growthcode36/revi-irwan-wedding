@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ============ OPEN INVITATION ============ */
+ /* ============ OPEN INVITATION ============ */
   const cover = document.getElementById('cover');
   const openBtn = document.getElementById('openInvitation');
   const bgMusic = document.getElementById('bgMusic');
@@ -22,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicIcon = document.getElementById('musicIcon');
   const floatingNav = document.getElementById('floatingNav');
 
-  openBtn.addEventListener('click', () => {
+  openBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // FIX: cegah klik ini ikut ter-deteksi sebagai "user interaction" global
+
     cover.classList.add('hidden');
     document.body.style.overflow = 'auto';
     floatingNav.classList.add('visible');
@@ -30,24 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bgMusic.play().then(() => {
       musicToggle.classList.add('playing');
-    }).catch(() => { /* autoplay blocked, user can press button */ });
+    }).catch((err) => {
+      console.warn('Musik gagal diputar otomatis:', err.message);
+      // Musik akan tetap bisa dijalankan manual lewat tombol play/pause
+    });
 
     triggerFadeIn();
-    startAutoScroll();
+
+    // FIX: mulai autoscroll SETELAH klik ini selesai diproses,
+    // supaya listener stopAutoScroll di bawah tidak langsung memicu
+    setTimeout(() => {
+      startAutoScroll();
+      attachInteractionListeners();
+    }, 300);
   });
 
   document.body.style.overflow = 'hidden';
-
-  /* ============ MUSIC TOGGLE ============ */
-  musicToggle.addEventListener('click', () => {
-    if (bgMusic.paused) {
-      bgMusic.play();
-      musicToggle.classList.add('playing');
-    } else {
-      bgMusic.pause();
-      musicToggle.classList.remove('playing');
-    }
-  });
 
   /* ============ PROGRESS BAR ============ */
   const progressBar = document.getElementById('progressBar');
@@ -243,10 +244,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (autoScrollTimer) clearInterval(autoScrollTimer);
   }
 
-  ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
-    window.addEventListener(evt, stopAutoScroll, { once: true, passive: true });
-  });
-
+  // FIX: listener ini baru dipasang SETELAH undangan dibuka (dipanggil dari openBtn handler)
+  function attachInteractionListeners() {
+    ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, stopAutoScroll, { once: true, passive: true });
+    });
+  }
   /* ============ SERVICE WORKER REGISTRATION ============ */
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
