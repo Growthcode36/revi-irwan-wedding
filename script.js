@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500);
   });
 
-  /* ============ OPEN INVITATION ============ */
+  /* ============ ELEMENTS ============ */
   const cover = document.getElementById('cover');
   const openBtn = document.getElementById('openInvitation');
   const bgMusic = document.getElementById('bgMusic');
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let invitationOpened = false;
 
+  /* ============ OPEN INVITATION ============ */
   openBtn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -37,12 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
     bgMusic.play().then(() => {
       musicToggle.classList.add('playing');
     }).catch((err) => {
-      console.warn('Musik gagal autoplay:', err.message);
+      console.warn('Musik gagal diputar otomatis (autoplay diblokir browser):', err.message);
     });
 
     triggerFadeIn();
 
-    // Delay supaya klik tombol ini tidak langsung memicu stopAutoScroll
+    // Delay supaya klik tombol "Buka Undangan" ini sendiri
+    // tidak langsung memicu listener yang menghentikan autoscroll
     setTimeout(() => {
       startAutoScroll();
       attachInteractionListeners();
@@ -54,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ============ MUSIC TOGGLE ============ */
   musicToggle.addEventListener('click', () => {
     if (bgMusic.paused) {
-      bgMusic.play();
-      musicToggle.classList.add('playing');
+      bgMusic.play().then(() => musicToggle.classList.add('playing'))
+        .catch((err) => console.warn('Gagal memutar musik:', err.message));
     } else {
       bgMusic.pause();
       musicToggle.classList.remove('playing');
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ============ FADE-IN ANIMATION ============ */
+  /* ============ FADE-IN ANIMATION (IntersectionObserver) ============ */
   function triggerFadeIn() {
     const fadeEls = document.querySelectorAll('.fade-in');
     const fadeObserver = new IntersectionObserver((entries) => {
@@ -144,26 +146,27 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* ============ COPY GIFT NUMBER ============ */
+  /* ============ COPY GIFT NUMBER (Clipboard API modern, tanpa execCommand) ============ */
   const copyBtn = document.getElementById('copyGift');
   const copyLabel = document.getElementById('copyLabel');
   const giftNumber = document.getElementById('giftNumber');
 
   copyBtn.addEventListener('click', async () => {
-  const number = giftNumber.textContent.replace(/\s/g, '');
-  try {
-    await navigator.clipboard.writeText(number);
-    copyBtn.classList.add('copied');
-    copyLabel.textContent = 'Tersalin!';
-  } catch (err) {
-    console.warn('Gagal menyalin otomatis, silakan salin manual:', number);
-    copyLabel.textContent = 'Gagal, salin manual';
-  }
-  setTimeout(() => {
-    copyBtn.classList.remove('copied');
-    copyLabel.textContent = 'Salin Nomor Rekening';
-  }, 2000);
-});
+    const number = giftNumber.textContent.replace(/\s/g, '');
+    try {
+      await navigator.clipboard.writeText(number);
+      copyBtn.classList.add('copied');
+      copyLabel.textContent = 'Tersalin!';
+    } catch (err) {
+      console.warn('Gagal menyalin otomatis, silakan salin manual:', number);
+      copyLabel.textContent = 'Gagal, salin manual';
+    }
+    setTimeout(() => {
+      copyBtn.classList.remove('copied');
+      copyLabel.textContent = 'Salin Nomor Rekening';
+    }, 2000);
+  });
+
   /* ============ RSVP WHATSAPP LINK ============ */
   const rsvpBtn = document.getElementById('rsvpBtn');
   const waNumber = '6281234567890';
