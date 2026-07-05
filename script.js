@@ -1,6 +1,9 @@
 'use strict';
 
+console.log('✅ script.js berhasil dimuat');
+
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('✅ DOMContentLoaded terpanggil');
 
   /* ============ GUEST NAME FROM URL ============ */
   const params = new URLSearchParams(window.location.search);
@@ -21,12 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicToggle = document.getElementById('musicToggle');
   const floatingNav = document.getElementById('floatingNav');
 
+  if (!openBtn) console.error('❌ Tombol openInvitation TIDAK DITEMUKAN di HTML!');
+
   let invitationOpened = false;
 
   /* ============ OPEN INVITATION ============ */
   openBtn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('✅ Tombol Buka Undangan diklik');
     if (invitationOpened) return;
     invitationOpened = true;
 
@@ -37,18 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bgMusic.play().then(() => {
       musicToggle.classList.add('playing');
+      console.log('✅ Musik berhasil diputar');
     }).catch((err) => {
-      console.warn('Musik gagal diputar otomatis (autoplay diblokir browser):', err.message);
+      console.warn('⚠️ Musik gagal autoplay:', err.message);
     });
 
     triggerFadeIn();
 
-    // Delay supaya klik tombol "Buka Undangan" ini sendiri
-    // tidak langsung memicu listener yang menghentikan autoscroll
     setTimeout(() => {
+      console.log('✅ Memulai autoscroll sekarang...');
       startAutoScroll();
       attachInteractionListeners();
-    }, 500);
+    }, 800);
   });
 
   document.body.style.overflow = 'hidden';
@@ -99,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ============ FADE-IN ANIMATION (IntersectionObserver) ============ */
+  /* ============ FADE-IN ANIMATION ============ */
   function triggerFadeIn() {
     const fadeEls = document.querySelectorAll('.fade-in');
     const fadeObserver = new IntersectionObserver((entries) => {
@@ -146,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* ============ COPY GIFT NUMBER (Clipboard API modern, tanpa execCommand) ============ */
+  /* ============ COPY GIFT NUMBER ============ */
   const copyBtn = document.getElementById('copyGift');
   const copyLabel = document.getElementById('copyLabel');
   const giftNumber = document.getElementById('giftNumber');
@@ -240,14 +246,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let userInteracted = false;
 
   function startAutoScroll() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('⚠️ Autoscroll dimatikan karena prefers-reduced-motion aktif di sistem Anda');
+      return;
+    }
     if (autoScrollTimer) clearInterval(autoScrollTimer);
     autoScrollTimer = setInterval(() => {
       if (userInteracted) {
+        console.log('⏹️ Autoscroll dihentikan karena interaksi pengguna');
         clearInterval(autoScrollTimer);
         return;
       }
       autoScrollIndex = (autoScrollIndex + 1) % scrollSections.length;
+      console.log('▶️ Auto-scroll ke section:', scrollSections[autoScrollIndex]);
       const target = document.getElementById(scrollSections[autoScrollIndex]);
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     }, 4000);
