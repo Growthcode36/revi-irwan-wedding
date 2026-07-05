@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Revi &amp; Irwan — Undangan Pernikahan</title>
+<meta name="description" content="Undangan pernikahan digital Revi &amp; Irwan, 17 Juli 2026, di Nagari Timbulun, Kabupaten Sijunjung, Sumatera Barat.">
+<meta name="theme-color" content="#0B1E3D">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Revi &amp; Irwan — Undangan Pernikahan">
+<meta property="og:description" content="Dengan penuh syukur, kami mengundang Anda untuk merayakan hari bahagia kami, 17 Juli 2026.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/icon-512.png">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader" class="loader" aria-hidden="true">
+  <div class="loader__ornament">
+    <img src="assets/images/ornament.svg" alt="" width="120" height="24">
+  </div>
+  <p class="loader__text">Revi &amp; Irwan</p>
+</div>
+
+<!-- ============ PROGRESS BAR ============ -->
+<div id="progressBar" class="progress-bar" role="progressbar" aria-hidden="true"></div>
+
+<!-- ============ COVER SCREEN ============ -->
+<section id="cover" class="cover">
+  <div class="cover__bg" style="background-image:url('assets/images/cover-bg.svg')"></div>
+  <div class="cover__content">
+    <p class="cover__eyebrow reveal">The Wedding Of</p>
+    <h1 class="cover__names reveal">Revi <span class="amp">&amp;</span> Irwan</h1>
+    <img class="cover__ornament reveal" src="assets/images/ornament.svg" alt="" width="160" height="32">
+    <p class="cover__guest reveal">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+    <p class="cover__guest-name reveal" id="guestName">Tamu Undangan</p>
+    <button id="openBtn" class="btn btn--gold reveal" type="button">
+      <span>Buka Undangan</span>
+    </button>
+  </div>
+</section>
+
+<!-- ============ MAIN CONTENT (hidden until opened) ============ -->
+<div id="mainContent" class="main-content" hidden>
+
+  <!-- FLOATING NAV -->
+  <nav id="floatingNav" class="floating-nav" aria-label="Navigasi utama">
+    <a href="#home" data-nav="home" class="floating-nav__link is-active">Home</a>
+    <a href="#mempelai" data-nav="mempelai" class="floating-nav__link">Mempelai</a>
+    <a href="#acara" data-nav="acara" class="floating-nav__link">Acara</a>
+    <a href="#gift" data-nav="gift" class="floating-nav__link">Gift</a>
+    <a href="#ucapan" data-nav="ucapan" class="floating-nav__link">Ucapan</a>
+  </nav>
+
+  <!-- MUSIC TOGGLE -->
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Putar atau jeda musik" aria-pressed="false">
+    <svg id="iconPlay" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+    <svg id="iconPause" viewBox="0 0 24 24" width="20" height="20" hidden><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </button>
+  <audio id="bgMusic" src="assets/audio/music.mp3" loop preload="none"></audio>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="section hero">
+    <div class="hero__bg" style="background-image:url('assets/images/hero-bg.svg')"></div>
+    <div class="container">
+      <p class="eyebrow reveal">Bismillahirrahmanirrahim</p>
+      <blockquote class="hero__quote reveal">
+        <p>&ldquo;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir.&rdquo;</p>
+        <cite>QS. Ar-Rum: 21</cite>
+      </blockquote>
+      <p class="hero__intro reveal">Dengan penuh rasa syukur kepada Allah Subhanahu wa Ta'ala, kami bermaksud menyelenggarakan pernikahan dan mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir serta memberikan doa restu bagi kami berdua.</p>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN ============ -->
+  <section class="section countdown-section">
+    <div class="container">
+      <p class="eyebrow reveal">Menghitung Hari Menuju</p>
+      <h2 class="section-title reveal">Hari Bahagia Kami</h2>
+      <div class="countdown reveal" id="countdown" aria-live="polite">
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-days">00</span>
+          <span class="countdown__label">Hari</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-hours">00</span>
+          <span class="countdown__label">Jam</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-minutes">00</span>
+          <span class="countdown__label">Menit</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__num" id="cd-seconds">00</span>
+          <span class="countdown__label">Detik</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMPELAI ============ -->
+  <section id="mempelai" class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Kedua Mempelai</p>
+      <h2 class="section-title reveal">Assalamu'alaikum Warahmatullahi Wabarakatuh</h2>
+      <p class="section-lead reveal">Tanpa mengurangi rasa hormat, izinkan kami memperkenalkan diri sebagai kedua calon mempelai yang akan menikah.</p>
+
+      <div class="couple">
+        <article class="couple__card reveal">
+          <div class="couple__photo">
+            <span>I</span>
+          </div>
+          <h3 class="couple__name">Irwan Al Firmansya</h3>
+          <p class="couple__nick">&ldquo;Irwan&rdquo;</p>
+          <p class="couple__parents">Putra dari<br>Bapak Ibral &amp; Ibu Yurniati</p>
+        </article>
+
+        <div class="couple__amp reveal" aria-hidden="true">&amp;</div>
+
+        <article class="couple__card reveal">
+          <div class="couple__photo">
+            <span>R</span>
+          </div>
+          <h3 class="couple__name">Revi Julia Putri, S.Pt</h3>
+          <p class="couple__nick">&ldquo;Revi&rdquo;</p>
+          <p class="couple__parents">Putri dari<br>Bapak Edriwarmen &amp; Ibu Marda Yulis</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACARA ============ -->
+  <section id="acara" class="section acara">
+    <div class="container">
+      <p class="eyebrow reveal">Waktu &amp; Tempat</p>
+      <h2 class="section-title reveal">Rangkaian Acara</h2>
+
+      <div class="event-grid">
+        <article class="event-card reveal">
+          <div class="event-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 2 2 7l10 5 10-5-10-5Zm0 7L2 14v3l10 5 10-5v-3l-10 5-10-5Z"/></svg>
+          </div>
+          <h3>Akad Nikah</h3>
+          <p class="event-card__day">Jumat, 17 Juli 2026</p>
+          <p class="event-card__time">10.00 WIB s.d. selesai</p>
+          <p class="event-card__place">Kediaman mempelai wanita,<br>Jorong Balai-Balai Timbulun,<br>Nagari Timbulun, Kec. Tanjung Gadang,<br>Kab. Sijunjung, Sumatera Barat 27571</p>
+        </article>
+
+        <article class="event-card reveal">
+          <div class="event-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 2a5 5 0 0 1 5 5c0 3-2 4-2 7h-6c0-3-2-4-2-7a5 5 0 0 1 5-5Zm-3 14h6v2H9v-2Zm1 4h4v1h-4v-1Z"/></svg>
+          </div>
+          <h3>Resepsi</h3>
+          <p class="event-card__day">Jumat, 17 Juli 2026</p>
+          <p class="event-card__time">11.00 WIB s.d. selesai</p>
+          <p class="event-card__place">Jorong Balai-Balai Timbulun,<br>Nagari Timbulun, Kec. Tanjung Gadang,<br>Kab. Sijunjung, Sumatera Barat 27571</p>
+        </article>
+      </div>
+
+      <div class="map-block reveal">
+        <a class="btn btn--outline" href="https://maps.app.goo.gl/2Pb7eYVYSqrLE4jw6" target="_blank" rel="noopener noreferrer">
+          Buka Lokasi di Google Maps
+        </a>
+        <div class="map-embed">
+          <iframe
+            title="Lokasi Acara Pernikahan"
+            src="https://maps.google.com/maps?q=Nagari%20Timbulun%2C%20Tanjung%20Gadang%2C%20Sijunjung%2C%20Sumatera%20Barat&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GIFT ============ -->
+  <section id="gift" class="section gift">
+    <div class="container">
+      <p class="eyebrow reveal">Tanda Kasih</p>
+      <h2 class="section-title reveal">Wedding Gift</h2>
+      <p class="section-lead reveal">Doa restu Anda adalah karunia yang paling berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, kami menyediakan opsi berikut.</p>
+
+      <div class="gift-card reveal">
+        <div class="gift-card__bank">Bank Transfer</div>
+        <div class="gift-card__number" id="rekNumber">1234 5678 9012</div>
+        <div class="gift-card__owner">a.n. NAMA PEMILIK REKENING</div>
+        <button class="btn btn--outline" id="copyRek" type="button">Salin Nomor Rekening</button>
+        <p class="gift-card__copied" id="copiedMsg" role="status" aria-live="polite" hidden>Nomor rekening disalin!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="section rsvp">
+    <div class="container">
+      <p class="eyebrow reveal">Konfirmasi Kehadiran</p>
+      <h2 class="section-title reveal">RSVP</h2>
+      <p class="section-lead reveal">Mohon konfirmasi kehadiran Anda melalui WhatsApp agar kami dapat mempersiapkan penyambutan dengan lebih baik.</p>
+      <a class="btn btn--gold reveal" id="whatsappBtn" href="#" target="_blank" rel="noopener noreferrer">
+        Konfirmasi via WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ UCAPAN ============ -->
+  <section id="ucapan" class="section ucapan">
+    <div class="container">
+      <p class="eyebrow reveal">Doa &amp; Ucapan</p>
+      <h2 class="section-title reveal">Kirim Ucapan</h2>
+
+      <form id="wishForm" class="wish-form reveal">
+        <div class="field">
+          <label for="wishName">Nama</label>
+          <input type="text" id="wishName" name="wishName" placeholder="Nama Anda" required maxlength="60">
+        </div>
+        <div class="field">
+          <label for="wishMessage">Ucapan &amp; Doa</label>
+          <textarea id="wishMessage" name="wishMessage" rows="3" placeholder="Tuliskan ucapan dan doa terbaik Anda..." required maxlength="300"></textarea>
+        </div>
+        <button type="submit" class="btn btn--gold">Kirim Ucapan</button>
+      </form>
+
+      <ul id="wishList" class="wish-list" aria-live="polite"></ul>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <img class="footer__ornament" src="assets/images/ornament.svg" alt="" width="140" height="28">
+    <p class="footer__quote">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+    <p class="footer__prayer">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+    <p class="footer__couple">Revi &amp; Irwan</p>
+    <p class="footer__credit">Dibuat dengan &hearts; — Undangan Digital</p>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
