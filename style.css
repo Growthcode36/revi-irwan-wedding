@@ -139,6 +139,23 @@ body {
 .cover-content { padding: 2rem; position: relative; z-index: 2; }
 .cover-label { font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.9; margin-bottom: 1rem; color: var(--cyan); }
 .cover-names { font-family: var(--font-script); font-size: clamp(3rem, 10vw, 5.5rem); font-weight: 400; margin-bottom: 0.5rem; text-shadow: 0 4px 25px rgba(0,0,0,0.5); color: #fff; }
+.cover-names { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0 0.35em; }
+.cn-name { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .cover-names {
+    flex-direction: column;
+    gap: 0.1em;
+    font-size: clamp(2.6rem, 14vw, 3.8rem);
+    line-height: 1.1;
+  }
+  .cover-names .amp {
+    font-size: 0.55em;
+    color: var(--gold);
+    opacity: 0.9;
+    margin: 0.05em 0;
+  }
+}
 .amp { font-size: 0.8em; opacity: 0.9; }
 .cover-date { font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.15em; margin-bottom: 2rem; opacity: 0.95; color: #EDE0FF; }
 .cover-guest { font-size: 0.9rem; opacity: 0.9; margin-bottom: 2.5rem; }
