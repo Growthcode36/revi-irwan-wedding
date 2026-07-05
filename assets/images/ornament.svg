@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" fill="none">
+  <g stroke="#C9A961" stroke-width="1.5" stroke-linecap="round" opacity="0.9">
+    <!-- Central gonjong (Minangkabau roof horn) cluster, stylized -->
+    <path d="M300 10 C 292 40, 285 70, 260 108" />
+    <path d="M300 10 C 308 40, 315 70, 340 108" />
+    <path d="M255 22 C 248 50, 238 78, 210 110" />
+    <path d="M345 22 C 352 50, 362 78, 390 110" />
+    <path d="M210 34 C 200 58, 186 82, 160 112" />
+    <path d="M390 34 C 400 58, 414 82, 440 112" />
+    <!-- base line -->
+    <path d="M120 112 H 480" stroke-width="1" opacity="0.6"/>
+    <!-- small flanking flourishes -->
+    <circle cx="120" cy="112" r="3" fill="#C9A961" stroke="none"/>
+    <circle cx="480" cy="112" r="3" fill="#C9A961" stroke="none"/>
+    <circle cx="300" cy="10" r="2.5" fill="#C9A961" stroke="none"/>
+  </g>
+</svg>
