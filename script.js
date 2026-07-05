@@ -373,6 +373,9 @@
   function startAutoScroll() {
     if (prefersReducedMotion) return;
     stopAutoScrollTimerOnly();
+    // Reset here: the click on "Buka Undangan" itself fires a pointerdown
+    // that would otherwise be mistaken for a manual scroll interaction.
+    userInteracted = false;
     autoScrollTimer = setInterval(function () {
       if (userInteracted) return;
       var sections = getAllSections();
