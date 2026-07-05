@@ -5,9 +5,6 @@
 (function () {
   'use strict';
 
-  /* ---------------------------------------------------
-     CONFIG
-     --------------------------------------------------- */
   var CONFIG = {
     eventDate: '2026-07-17T10:00:00+07:00',
     whatsappNumber: '6281234567890',
@@ -18,9 +15,6 @@
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------------------------------------------------
-     GUEST NAME FROM URL (?to=Nama%20Tamu)
-     --------------------------------------------------- */
   function initGuestName() {
     var params = new URLSearchParams(window.location.search);
     var guest = params.get('to');
@@ -30,26 +24,15 @@
     }
   }
 
-  /* ---------------------------------------------------
-     LOADER
-     --------------------------------------------------- */
   function initLoader() {
     var loader = document.getElementById('loader');
     if (!loader) return;
     window.addEventListener('load', function () {
-      setTimeout(function () {
-        loader.classList.add('is-hidden');
-      }, 600);
+      setTimeout(function () { loader.classList.add('is-hidden'); }, 600);
     });
-    // fallback in case load event already fired
-    setTimeout(function () {
-      loader.classList.add('is-hidden');
-    }, 2500);
+    setTimeout(function () { loader.classList.add('is-hidden'); }, 2500);
   }
 
-  /* ---------------------------------------------------
-     PROGRESS BAR
-     --------------------------------------------------- */
   function initProgressBar() {
     var bar = document.getElementById('progressBar');
     if (!bar) return;
@@ -64,9 +47,6 @@
     update();
   }
 
-  /* ---------------------------------------------------
-     COUNTDOWN
-     --------------------------------------------------- */
   function initCountdown() {
     var target = new Date(CONFIG.eventDate).getTime();
     var elDays = document.getElementById('cd-days');
@@ -81,39 +61,28 @@
       var now = Date.now();
       var diff = target - now;
       if (diff <= 0) {
-        elDays.textContent = '00';
-        elHours.textContent = '00';
-        elMinutes.textContent = '00';
-        elSeconds.textContent = '00';
+        elDays.textContent = '00'; elHours.textContent = '00';
+        elMinutes.textContent = '00'; elSeconds.textContent = '00';
         return;
       }
       var days = Math.floor(diff / (1000 * 60 * 60 * 24));
       var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       var minutes = Math.floor((diff / (1000 * 60)) % 60);
       var seconds = Math.floor((diff / 1000) % 60);
-
-      elDays.textContent = pad(days);
-      elHours.textContent = pad(hours);
-      elMinutes.textContent = pad(minutes);
-      elSeconds.textContent = pad(seconds);
+      elDays.textContent = pad(days); elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes); elSeconds.textContent = pad(seconds);
     }
-
     tick();
     setInterval(tick, 1000);
   }
 
-  /* ---------------------------------------------------
-     REVEAL ON SCROLL (IntersectionObserver)
-     --------------------------------------------------- */
   function initRevealAnimations() {
     var revealEls = document.querySelectorAll('.reveal');
     if (!revealEls.length) return;
-
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       revealEls.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
-
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -122,13 +91,9 @@
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
     revealEls.forEach(function (el) { observer.observe(el); });
   }
 
-  /* ---------------------------------------------------
-     FLOATING NAV — smooth scroll + active state
-     --------------------------------------------------- */
   function initFloatingNav() {
     var nav = document.getElementById('floatingNav');
     if (!nav) return;
@@ -154,20 +119,14 @@
     function updateActive() {
       var scrollPos = window.scrollY + window.innerHeight * 0.35;
       var current = sections[0];
-      sections.forEach(function (s) {
-        if (s.el.offsetTop <= scrollPos) current = s;
-      });
+      sections.forEach(function (s) { if (s.el.offsetTop <= scrollPos) current = s; });
       links.forEach(function (l) { l.classList.remove('is-active'); });
       if (current) current.link.classList.add('is-active');
     }
-
     window.addEventListener('scroll', updateActive, { passive: true });
     updateActive();
   }
 
-  /* ---------------------------------------------------
-     MUSIC TOGGLE
-     --------------------------------------------------- */
   function initMusic() {
     var toggle = document.getElementById('musicToggle');
     var audio = document.getElementById('bgMusic');
@@ -183,12 +142,8 @@
 
     toggle.addEventListener('click', function () {
       if (audio.paused) {
-        audio.play().then(function () {
-          setPlayingUI(true);
-        }).catch(function () {
-          // Autoplay/playback blocked or file missing — silently ignore.
-          setPlayingUI(false);
-        });
+        audio.play().then(function () { setPlayingUI(true); })
+          .catch(function () { setPlayingUI(false); });
       } else {
         audio.pause();
         setPlayingUI(false);
@@ -196,17 +151,11 @@
     });
 
     window.__tryAutoplayMusic = function () {
-      audio.play().then(function () {
-        setPlayingUI(true);
-      }).catch(function () {
-        setPlayingUI(false);
-      });
+      audio.play().then(function () { setPlayingUI(true); })
+        .catch(function () { setPlayingUI(false); });
     };
   }
 
-  /* ---------------------------------------------------
-     COVER — open invitation
-     --------------------------------------------------- */
   function initCover() {
     var openBtn = document.getElementById('openBtn');
     var cover = document.getElementById('cover');
@@ -217,7 +166,6 @@
       cover.style.transition = 'opacity 0.6s ease, visibility 0.6s ease';
       cover.style.opacity = '0';
       cover.style.visibility = 'hidden';
-
       main.hidden = false;
       document.body.style.overflow = '';
 
@@ -234,9 +182,6 @@
     });
   }
 
-  /* ---------------------------------------------------
-     GIFT — copy account number
-     --------------------------------------------------- */
   function initCopyRek() {
     var btn = document.getElementById('copyRek');
     var msg = document.getElementById('copiedMsg');
@@ -250,11 +195,8 @@
           setTimeout(function () { msg.hidden = true; }, 2500);
         }
       };
-
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(function () {
-          fallbackCopy(text, done);
-        });
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
       } else {
         fallbackCopy(text, done);
       }
@@ -268,31 +210,23 @@
     textarea.style.opacity = '0';
     document.body.appendChild(textarea);
     textarea.select();
-    try { document.execCommand('copy'); } catch (e) { /* no-op */ }
+    try { document.execCommand('copy'); } catch (e) {}
     document.body.removeChild(textarea);
     cb();
   }
 
-  /* ---------------------------------------------------
-     RSVP — WhatsApp link with prefilled message
-     --------------------------------------------------- */
   function initWhatsApp() {
     var btn = document.getElementById('whatsappBtn');
     if (!btn) return;
     var params = new URLSearchParams(window.location.search);
     var guest = params.get('to');
     var name = guest ? decodeURIComponent(guest.trim()) : 'Tamu Undangan';
-
     var message = 'Assalamu\'alaikum, saya ' + name +
       '. Izinkan saya mengonfirmasi kehadiran pada acara pernikahan Revi & Irwan. Terima kasih.';
-
     var url = 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(message);
     btn.setAttribute('href', url);
   }
 
-  /* ---------------------------------------------------
-     UCAPAN — form + localStorage
-     --------------------------------------------------- */
   function initWishForm() {
     var form = document.getElementById('wishForm');
     var list = document.getElementById('wishList');
@@ -303,23 +237,16 @@
       try {
         var raw = localStorage.getItem(STORAGE_KEY);
         return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
+      } catch (e) { return []; }
     }
-
     function saveWishes(wishes) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
-      } catch (e) { /* storage unavailable — ignore */ }
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes)); } catch (e) {}
     }
-
     function escapeHtml(str) {
       var div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
     }
-
     function renderWishes() {
       var wishes = loadWishes();
       list.innerHTML = '';
@@ -339,7 +266,6 @@
         list.appendChild(li);
       });
     }
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var nameInput = document.getElementById('wishName');
@@ -347,21 +273,15 @@
       var name = nameInput.value.trim();
       var message = messageInput.value.trim();
       if (!name || !message) return;
-
       var wishes = loadWishes();
       wishes.push({ name: name, message: message, ts: Date.now() });
       saveWishes(wishes);
       renderWishes();
       form.reset();
     });
-
     renderWishes();
   }
 
-  /* ---------------------------------------------------
-     AUTO-SCROLL BETWEEN SECTIONS
-     Stops when user scrolls or touches manually.
-     --------------------------------------------------- */
   var autoScrollTimer = null;
   var resumeTimer = null;
   var userInteracted = false;
@@ -373,8 +293,6 @@
   function startAutoScroll() {
     if (prefersReducedMotion) return;
     stopAutoScrollTimerOnly();
-    // Reset here: the click on "Buka Undangan" itself fires a pointerdown
-    // that would otherwise be mistaken for a manual scroll interaction.
     userInteracted = false;
     autoScrollTimer = setInterval(function () {
       if (userInteracted) return;
@@ -390,18 +308,13 @@
   }
 
   function stopAutoScrollTimerOnly() {
-    if (autoScrollTimer) {
-      clearInterval(autoScrollTimer);
-      autoScrollTimer = null;
-    }
+    if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
   }
 
   function stopAutoScroll() {
     userInteracted = true;
     stopAutoScrollTimerOnly();
     if (resumeTimer) clearTimeout(resumeTimer);
-    // Auto-scroll permanently stops after manual interaction;
-    // it only exists to gently guide first-time viewing.
   }
 
   function initAutoScrollInteractionListeners() {
@@ -414,22 +327,14 @@
     });
   }
 
-  /* ---------------------------------------------------
-     SERVICE WORKER REGISTRATION
-     --------------------------------------------------- */
   function initServiceWorker() {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {
-          /* registration failed — non-critical, ignore */
-        });
+        navigator.serviceWorker.register('sw.js').catch(function () {});
       });
     }
   }
 
-  /* ---------------------------------------------------
-     INIT
-     --------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initGuestName();
     initLoader();
@@ -444,7 +349,6 @@
     initAutoScrollInteractionListeners();
     initServiceWorker();
 
-    // Reveal animations for elements visible before opening (cover section)
     document.querySelectorAll('.cover .reveal').forEach(function (el) {
       el.classList.add('is-visible');
     });
