@@ -276,8 +276,11 @@
       <h2 class="section-title fade-in">Ucapan</h2>
 
       <form id="wishForm" class="wish-form fade-in">
-        <input type="text" id="wishName" placeholder="Nama Anda" required maxlength="50">
-        <textarea id="wishMessage" placeholder="Tulis ucapan dan doa..." required maxlength="300" rows="3"></textarea>
+        <label for="wishName" class="sr-only">Nama Anda</label>
+        <input type="text" id="wishName" name="wishName" placeholder="Nama Anda" required maxlength="50" autocomplete="name">
+        
+        <label for="wishMessage" class="sr-only">Ucapan dan doa</label>
+        <textarea id="wishMessage" name="wishMessage" placeholder="Tulis ucapan dan doa..." required maxlength="300" rows="3"></textarea>
         <button type="submit" class="btn-send">Kirim Ucapan</button>
       </form>
 
