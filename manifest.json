@@ -1,14 +1,13 @@
 {
-  "name": "Revi & Irwan - Undangan Pernikahan",
+  "name": "Revi & Irwan - Wedding Invitation",
   "short_name": "Revi & Irwan",
-  "description": "Undangan pernikahan digital Revi & Irwan, 17 Juli 2026, Sumatera Barat.",
+  "description": "Undangan pernikahan digital Revi & Irwan - 17 Juli 2026",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#100B2E",
-  "theme_color": "#100B2E",
-  "lang": "id",
+  "background_color": "#F4F1FB",
+  "theme_color": "#6C4AB6",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "assets/icon-192.png",
