@@ -69,9 +69,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-inline: auto;
 }
 
-/* =========================================================
-   LOADER
-   ========================================================= */
+/* LOADER */
 .loader {
   position: fixed;
   inset: 0;
@@ -101,9 +99,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   50% { opacity: 1; transform: scale(1); }
 }
 
-/* =========================================================
-   PROGRESS BAR
-   ========================================================= */
+/* PROGRESS BAR */
 .progress-bar {
   position: fixed;
   top: 0; left: 0;
@@ -114,9 +110,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: width 0.1s ease-out;
 }
 
-/* =========================================================
-   COVER SCREEN
-   ========================================================= */
+/* COVER SCREEN */
 .cover {
   position: relative;
   min-height: 100svh;
@@ -179,9 +173,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 0 2rem;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -208,9 +200,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .btn--outline:hover { background: rgba(201,169,97,0.15); transform: translateY(-2px); }
 
-/* =========================================================
-   FLOATING NAV
-   ========================================================= */
+/* FLOATING NAV */
 .floating-nav {
   position: fixed;
   bottom: 1.25rem;
@@ -245,9 +235,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--gold-light);
 }
 
-/* =========================================================
-   MUSIC TOGGLE
-   ========================================================= */
+/* MUSIC TOGGLE */
 .music-toggle {
   position: fixed;
   top: 1.25rem;
@@ -268,9 +256,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .music-toggle:hover { transform: scale(1.08); }
 
-/* =========================================================
-   SECTIONS (generic)
-   ========================================================= */
+/* SECTIONS (generic) */
 .section {
   position: relative;
   padding: var(--section-pad-y) 0;
@@ -303,9 +289,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 0.95rem;
 }
 
-/* =========================================================
-   HERO
-   ========================================================= */
+/* HERO */
 .hero {
   min-height: 70vh;
   display: flex;
@@ -352,9 +336,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   opacity: 0.85;
 }
 
-/* =========================================================
-   COUNTDOWN
-   ========================================================= */
+/* COUNTDOWN */
 .countdown {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -387,9 +369,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   opacity: 0.7;
 }
 
-/* =========================================================
-   COUPLE / MEMPELAI
-   ========================================================= */
+/* COUPLE / MEMPELAI */
 .couple {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -448,9 +428,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--gold);
 }
 
-/* =========================================================
-   ACARA / EVENT CARDS
-   ========================================================= */
+/* ACARA / EVENT CARDS */
 .event-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -505,9 +483,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   filter: grayscale(0.15) invert(0.92) contrast(0.9);
 }
 
-/* =========================================================
-   GIFT
-   ========================================================= */
+/* GIFT */
 .gift-card {
   max-width: 420px;
   margin: 0 auto;
@@ -539,14 +515,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gift-card__owner { font-size: 0.85rem; opacity: 0.75; margin-bottom: 1.5rem; }
 .gift-card__copied { margin-top: 0.75rem; font-size: 0.8rem; color: var(--gold-light); }
 
-/* =========================================================
-   RSVP
-   ========================================================= */
+/* RSVP */
 .rsvp { text-align: center; }
 
-/* =========================================================
-   UCAPAN / WISH FORM
-   ========================================================= */
+/* UCAPAN / WISH FORM */
 .wish-form {
   max-width: 520px;
   margin: 0 auto 2.5rem;
@@ -608,9 +580,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .wish-list__message { margin: 0; font-size: 0.9rem; opacity: 0.85; }
 .wish-list__empty { text-align: center; opacity: 0.6; font-size: 0.9rem; }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* FOOTER */
 .footer {
   text-align: center;
   padding: clamp(3rem, 8vw, 5rem) 1.5rem 3rem;
@@ -637,9 +607,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .footer__credit { font-size: 0.7rem; opacity: 0.4; margin: 0; }
 
-/* =========================================================
-   REVEAL ANIMATION
-   ========================================================= */
+/* REVEAL ANIMATION */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -650,9 +618,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: translateY(0);
 }
 
-/* =========================================================
-   RESPONSIVE ADJUSTMENTS
-   ========================================================= */
+/* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 640px) {
   .couple { grid-template-columns: 1fr; }
   .couple__amp { transform: rotate(90deg); margin: 0.5rem auto; }
