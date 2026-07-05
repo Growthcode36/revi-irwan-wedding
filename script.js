@@ -150,25 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const giftNumber = document.getElementById('giftNumber');
 
   copyBtn.addEventListener('click', async () => {
-    const number = giftNumber.textContent.replace(/\s/g, '');
-    try {
-      await navigator.clipboard.writeText(number);
-    } catch (err) {
-      const temp = document.createElement('textarea');
-      temp.value = number;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
-    }
+  const number = giftNumber.textContent.replace(/\s/g, '');
+  try {
+    await navigator.clipboard.writeText(number);
     copyBtn.classList.add('copied');
     copyLabel.textContent = 'Tersalin!';
-    setTimeout(() => {
-      copyBtn.classList.remove('copied');
-      copyLabel.textContent = 'Salin Nomor Rekening';
-    }, 2000);
-  });
-
+  } catch (err) {
+    console.warn('Gagal menyalin otomatis, silakan salin manual:', number);
+    copyLabel.textContent = 'Gagal, salin manual';
+  }
+  setTimeout(() => {
+    copyBtn.classList.remove('copied');
+    copyLabel.textContent = 'Salin Nomor Rekening';
+  }, 2000);
+});
   /* ============ RSVP WHATSAPP LINK ============ */
   const rsvpBtn = document.getElementById('rsvpBtn');
   const waNumber = '6281234567890';
